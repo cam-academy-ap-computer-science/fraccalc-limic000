@@ -1,5 +1,16 @@
 package fracCalc;
+import java.util.*;
 
+/*takes value input (underscores, not spaces) and arithmetic operator, separated by single space
+ * 		converts user value into whole numbers or mixed fractions (not improper)
+ *main
+ *		first check for border/special cases (multiplying by 0, negative negatives, divide by 0)
+ *program must continue until user says quit, not when the equation is finished
+ *outputs must be reduced (mixed fractions as needed)
+ *
+ *
+ * 
+ */
 public class FracCalc {
 
     public static void main(String[] args) 
