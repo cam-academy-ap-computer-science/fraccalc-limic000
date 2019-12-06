@@ -16,28 +16,20 @@ import java.util.*;
  *			 - operand, operator, and second operand
  *		 - converts user value into whole numbers or mixed fractions (not improper)
  *	 - create an empty string called operand
- *		 - while charAt the input string does not equal +_* and /
- *			 - add the charAt index to the operand string
+ *		 - while charAt the input string does not equal +-* and /
+ *			 - if index of "_" does not equal -1
+ *	 	 	 	- while charAt the input string does not equal "_"
+ *		 			- add the charAt that index to the whole number string
+ *			 - else
+ *			 	- add the charAt index to the operand string
  *	 - create another empty string called operator
  *		 - if charAt input string equals +-* or /
  *			 - add the charAt that index to operator
  *	 - create another empty string called second operand
- *		 - 
- *
- *
- *
- *
- *
- *
- *
- *
- *	 - if index of "_" does not equal -1
- *	 	 - while charAt the input string does not equal "_"
- *		 	 - add the charAt that index to the operand string
- *
+ *		 - do the same thing as the previous operand thing
  *	 - check for border/special cases (multiplying by 0, negative negatives, divide by 0)
- *	 - outputs: second operand 
- *		 - must be reduced (mixed fractions as needed)
+ *outputs: second operand 
+ *	 - must be reduced (mixed fractions as needed)
  *
  *
  *
@@ -71,11 +63,13 @@ public class FracCalc {
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) {
-    	int index_u
-        for (int i = 0; i <= input.length(); i++) {
-        	
-        } 
-        
+    	String operand = "";
+    	for (int i = 0; i<=input.length(); i++) {
+    		while (input.charAt(i) != '*' && input.charAt(i) != '/' && input.charAt(i) != '+' && input.charAt(i) != '-') {
+    			operand += input.charAt(i);
+    			System.out.println(operand);   			
+    		}
+    	}
         return "";
     }
 
