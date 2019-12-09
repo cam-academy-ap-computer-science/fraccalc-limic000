@@ -44,9 +44,9 @@ public class FracCalc {
         Scanner console = new Scanner(System.in);		/*creates new scanner*/
         boolean stop = false;							/*creates new boolean*/
         while (stop == false) {							/*while loop that continues until stop == true*/
-        	String num_1 = console.nextLine();			/*stores input value in string*/
-        	String final_num = produceAnswer(num_1);	/*calls the function with input value as actual parameter*/
-        	if (num_1.equals("quit")) {					/*makes stop = true if the input says "quit"*/
+        	String input = console.nextLine();			/*stores input value in string*/
+        	String final_num = produceAnswer(input);	/*calls the function with input value as actual parameter*/
+        	if (input.equals("quit")) {					/*makes stop = true if the input says "quit"*/
         		stop = true;
         	}
         }
@@ -63,14 +63,23 @@ public class FracCalc {
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) {
-    	String operand = "";
+    	/*String operand = "";
     	for (int i = 0; i<=input.length(); i++) {
     		while (input.charAt(i) != '*' && input.charAt(i) != '/' && input.charAt(i) != '+' && input.charAt(i) != '-') {
     			operand += input.charAt(i);
     			System.out.println(operand);   			
     		}
     	}
-        return "";
+    	*/
+    	String parsable_input = input;
+    	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")+1);
+    	parsable_input = input.substring(input.indexOf(" ")+1);
+    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")+1);
+    	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1);
+    	String frac2 = parsable_input; 
+    	//parsable_input.substring(0, parsable_input.indexOf(" ")+1);
+        System.out.println(frac2);
+    	return frac2;
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
