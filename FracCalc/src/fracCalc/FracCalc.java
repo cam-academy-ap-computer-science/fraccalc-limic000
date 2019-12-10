@@ -90,7 +90,7 @@ public class FracCalc {
     		whole_num = input.substring(0,input.indexOf(" ")+ 1);
     		//whole_num = Integer.parseInt (whole);
     	}
-    	return whole_num;
+    	return whole_num ;
     }
     
     
