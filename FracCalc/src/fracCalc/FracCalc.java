@@ -63,23 +63,59 @@ public class FracCalc {
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) {
-    	/*String operand = "";
-    	for (int i = 0; i<=input.length(); i++) {
-    		while (input.charAt(i) != '*' && input.charAt(i) != '/' && input.charAt(i) != '+' && input.charAt(i) != '-') {
-    			operand += input.charAt(i);
-    			System.out.println(operand);   			
-    		}
-    	}
-    	*/
+    	
+    	//parsing into three different strings: frac1, operator, and frac2
     	String parsable_input = input;
-    	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")+1);
-    	parsable_input = input.substring(input.indexOf(" ")+1);
-    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")+1);
-    	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1);
-    	String frac2 = parsable_input; 
-    	//parsable_input.substring(0, parsable_input.indexOf(" ")+1);
-        System.out.println(frac2);
+    	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes frac1 equal to the parsable_input up to the first space
+    	parsable_input = input.substring(input.indexOf(" ")+1); //takes frac1 off of parsable_input
+    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes operator equal to parsable_input up to the first space (actually second space of the original, but we cut that one off)
+    	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
+    	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
+    	
+    	String whole_num1 = wholeFrac(frac1);
+    	
+    	if (frac1.indexOf(" ") != -1) {
+    		frac1 = frac1.substring(frac1.indexOf(" ")+1);
+    	}
+    	System.out.println(frac1);
+    	String numerator1 = numerator(frac1);
+    	String denominator1 = denominator(frac1);
+    	//System.out.println(numerator1);
     	return frac2;
+    }
+    
+    public static String wholeFrac (String input) {
+    	String whole_num = "0";
+    	if (input.indexOf(" ") != -1) { //if the fraction has a space
+    		whole_num = input.substring(0,input.indexOf(" ")+ 1);
+    		//whole_num = Integer.parseInt (whole);
+    	}
+    	return whole_num;
+    }
+    
+    
+    
+    //redo the spaces to underlines!!!
+    
+    
+    
+    public static String numerator (String input) {
+    	String numerator_num = "0";
+    	if (input.indexOf("/") != -1) {
+    		numerator_num = input.substring(0, input.indexOf("/")+1);
+    		//numerator_num = Integer.parseInt(numerator);
+    		//System.out.println(numerator_num);
+    	}
+    	return numerator_num;
+    }
+    
+    public static String denominator (String input) {
+    	String denominator_num = "1";
+    	if (input.indexOf("/") != -1) {
+    		String denominator = input.substring(input.indexOf("/"), input.length());
+    		//denominator_num = Integer.parseInt(denominator);
+    	}
+    	return denominator_num;
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
