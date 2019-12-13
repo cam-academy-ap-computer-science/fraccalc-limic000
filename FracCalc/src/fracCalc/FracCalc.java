@@ -72,31 +72,28 @@ public class FracCalc {
     	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
     	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
     	
-    	String whole_num1 = wholeFrac(frac1);
+    	String whole_num1 = wholeFrac(frac1);		//whole number 1 gets passed back
     	
-    	if (frac1.indexOf(" ") != -1) {
-    		frac1 = frac1.substring(frac1.indexOf(" ")+1);
+    	if (frac1.indexOf("_") != -1) {							//whole number 1 gets taken off string
+    		frac1 = frac1.substring(frac1.indexOf("_")+1);
     	}
-    	System.out.println(frac1);
-    	String numerator1 = numerator(frac1);
+    	
+    	
+    	String numerator1 = numerator(frac1);		//does not work!!!!!!!!!
+    	System.out.println(numerator1);
     	String denominator1 = denominator(frac1);
     	//System.out.println(numerator1);
     	return frac2;
     }
     
-    public static String wholeFrac (String input) {
+    public static String wholeFrac (String input) {		//finds the whole number
     	String whole_num = "0";
-    	if (input.indexOf(" ") != -1) { //if the fraction has a space
-    		whole_num = input.substring(0,input.indexOf(" ")+ 1);
+    	if (input.indexOf("_") != -1) { //if the fraction has a space
+    		whole_num = input.substring(0,input.indexOf("_"));
     		//whole_num = Integer.parseInt (whole);
     	}
     	return whole_num ;
     }
-    
-    
-    
-    //redo the spaces to underlines!!!
-    
     
     
     public static String numerator (String input) {
