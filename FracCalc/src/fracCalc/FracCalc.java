@@ -41,6 +41,7 @@ public class FracCalc {
 
     public static void main(String[] args) 
     {
+    	System.out.println("Please type your equation, or \"quit\" to quit");
         Scanner console = new Scanner(System.in);		/*creates new scanner*/
         boolean stop = false;							/*creates new boolean*/
         while (stop == false) {							/*while loop that continues until stop == true*/
@@ -113,6 +114,7 @@ public class FracCalc {
     		//denominator_num = Integer.parseInt(denominator);
     	}
     	return denominator_num;
+    	
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
