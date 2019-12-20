@@ -73,23 +73,25 @@ public class FracCalc {
     	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
     	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
     	
-    	String whole_num1 = wholeFrac(frac1);		//whole number 1 gets passed back
-    	
-    	if (frac1.indexOf("_") != -1) {							//whole number 1 gets taken off string
-    		frac1 = frac1.substring(frac1.indexOf("_")+1);
-    	}
-    	
-    	
-    	String numerator1 = numerator(frac1);		//does not work!!!!!!!!!
-    	System.out.println(numerator1);
+    	String whole_num1 = wholeFrac(frac1);		//parses frac1 further
+    	String numerator1 = numerator(frac1);
     	String denominator1 = denominator(frac1);
-    	//System.out.println(numerator1);
-    	return frac2;
+    	
+    	String whole_num2 = wholeFrac(frac2);		//parses frac2 further
+    	String numerator2 = numerator(frac2);
+    	String denominator2 = denominator(frac2);
+    	
+    	String checkpoint2 = "whole:" + whole_num2 + " numerator:" + numerator2 + " denominator:" + denominator2;
+    	return checkpoint2;
     }
     
-    public static String wholeFrac (String input) {		//finds the whole number
+    //finds the whole number
+    public static String wholeFrac (String input) {
     	String whole_num = "0";
-    	if (input.indexOf("_") != -1) { //if the fraction has a space
+    	if (input.indexOf("/") == -1) { //if there is no fraction, then the whole thing is the whole number
+    		whole_num = input;
+    	}
+    	if (input.indexOf("_") != -1) { //if the fraction has an underscore, then it has a whole number before the fraction
     		whole_num = input.substring(0,input.indexOf("_"));
     		//whole_num = Integer.parseInt (whole);
     	}
@@ -97,26 +99,29 @@ public class FracCalc {
     }
     
     
+    //finds the numerator
     public static String numerator (String input) {
     	String numerator_num = "0";
+    	if (input.indexOf("_") != -1) {							//whole number1 gets taken off string
+    		input = input.substring(input.indexOf("_")+1);
+    	}
     	if (input.indexOf("/") != -1) {
-    		numerator_num = input.substring(0, input.indexOf("/")+1);
+    		numerator_num = input.substring(0, input.indexOf("/"));
     		//numerator_num = Integer.parseInt(numerator);
     		//System.out.println(numerator_num);
     	}
     	return numerator_num;
     }
     
+    //finds the denominator
     public static String denominator (String input) {
     	String denominator_num = "1";
-    	if (input.indexOf("/") != -1) {
-    		String denominator = input.substring(input.indexOf("/"), input.length());
-    		//denominator_num = Integer.parseInt(denominator);
+    	if(input.indexOf("/") != -1) {
+    		input = input.substring(input.indexOf("/")+1);
+    		denominator_num = input;
     	}
     	return denominator_num;
-    	
     }
-
-    // TODO: Fill in the space below with any helper methods that you think you will need
+    
     
 }
