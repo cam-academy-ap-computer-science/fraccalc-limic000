@@ -108,7 +108,6 @@ public class FracCalc {
     	if (input.indexOf("/") != -1) {
     		numerator_num = input.substring(0, input.indexOf("/"));
     		//numerator_num = Integer.parseInt(numerator);
-    		//System.out.println(numerator_num);
     	}
     	return numerator_num;
     }
@@ -122,6 +121,4 @@ public class FracCalc {
     	}
     	return denominator_num;
     }
-    
-    
 }
