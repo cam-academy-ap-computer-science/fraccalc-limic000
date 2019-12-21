@@ -73,19 +73,40 @@ public class FracCalc {
     	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
     	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
     	
-    	String whole_num1 = wholeFrac(frac1);		//parses frac1 further
+    	String whole_num1 = wholeFrac(frac1);		//separates frac1 further
     	String numerator1 = numerator(frac1);
     	String denominator1 = denominator(frac1);
     	
-    	String whole_num2 = wholeFrac(frac2);		//parses frac2 further
+    	
+    	String whole_num2 = wholeFrac(frac2);		//separates frac2 further
     	String numerator2 = numerator(frac2);
     	String denominator2 = denominator(frac2);
     	
-    	String checkpoint2 = "whole:" + whole_num2 + " numerator:" + numerator2 + " denominator:" + denominator2;
-    	return checkpoint2;
+    	int w_num1 = Integer.parseInt(whole_num1);
+    	int n_1 = Integer.parseInt(numerator1);
+    	int d_1 = Integer.parseInt(denominator1);
+    	int w_num2 = Integer.parseInt(whole_num2);
+    	int n_2 = Integer.parseInt(numerator2);
+    	int d_2 = Integer.parseInt(denominator2);
+    	
+    	String final_answer = "";
+    	if (operator.equals("+")) {
+    		final_answer = add_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    	}
+    	if (operator.equals("-")) {
+    		final_answer = subtract_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    	}
+    	if (operator.equals("*")) {
+    		final_answer = multiply_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    	}
+    	if (operator.equals("/")) {
+    		final_answer = divide_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    	}
+    	System.out.println(final_answer);
+    	return final_answer;
     }
-    
-    //finds the whole number
+
+	//finds the whole number
     public static String wholeFrac (String input) {
     	String whole_num = "0";
     	if (input.indexOf("/") == -1) { //if there is no fraction, then the whole thing is the whole number
@@ -120,5 +141,58 @@ public class FracCalc {
     		denominator_num = input;
     	}
     	return denominator_num;
+    }
+    
+    //adding
+    public static String add_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	int w_total = 0;
+    	if ((w1 != 0) || (w2 != 0)) {
+    		w_total = w1 + w2;
+    	}
+    	int d_total = d1*d2;
+    	int n_new1 = n1*d2;
+    	int n_new2 = n2*d1;
+    	int n_total = n_new1 + n_new2;
+    	String final_answer = w_total + "_" + n_total + "/" + d_total;
+    	return final_answer;
+    }
+    
+    //subtract
+    public static String subtract_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	int w_total = 0;
+    	if ((w1 != 0) || (w2 != 0)) {
+    		w_total = w1 - w2;
+    	}
+
+    	int d_total = d1*d2;
+    	int n_new1 = n1*d2;
+    	int n_new2 = n2*d1;
+    	int n_total = n_new1 - n_new2;
+    	String final_answer = w_total + "_" + n_total + "/" + d_total;
+    	return final_answer;
+    }
+    
+    //multiply
+    public static String multiply_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	if ((w1 == 0) || (w2 == 0)) {
+    		final answer = 0;
+    	}
+    	
+    	
+    }
+    
+  //divide
+    public static String divide_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	int w_total = 0;
+    	if ((w1 != 0) || (w2 != 0)) {
+    		w_total = w1 - w2;
+    	} 
+
+    	int d_total = d1*d2;
+    	int n_new1 = n1*d2;
+    	int n_new2 = n2*d1;
+    	int n_total = n_new1 - n_new2;
+    	String final_answer = w_total + "_" + n_total + "/" + d_total;
+    	return final_answer;
     }
 }
