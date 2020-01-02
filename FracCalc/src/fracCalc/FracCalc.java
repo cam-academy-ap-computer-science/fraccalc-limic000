@@ -69,7 +69,7 @@ public class FracCalc {
     	String parsable_input = input;
     	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes frac1 equal to the parsable_input up to the first space
     	parsable_input = input.substring(input.indexOf(" ")+1); //takes frac1 off of parsable_input
-    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes operator equal to parsable_input up to the first space (actually second space of the original, but we cut that one off)
+    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")); //makes operator equal to parsable_input up to the first space (actually second space of the original, but we cut that one off)
     	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
     	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
     	
@@ -93,16 +93,18 @@ public class FracCalc {
     	if (operator.equals("+")) {
     		final_answer = add_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
     	}
+    	/*
     	if (operator.equals("-")) {
     		final_answer = subtract_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
     	}
-    	if (operator.equals("*")) {
+    	/*if (operator.equals("*")) {
     		final_answer = multiply_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
     	}
     	if (operator.equals("/")) {
     		final_answer = divide_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
     	}
-    	System.out.println(final_answer);
+    	*/
+    	System.out.println(final_answer + "is the final answer");
     	return final_answer;
     }
 
@@ -128,7 +130,6 @@ public class FracCalc {
     	}
     	if (input.indexOf("/") != -1) {
     		numerator_num = input.substring(0, input.indexOf("/"));
-    		//numerator_num = Integer.parseInt(numerator);
     	}
     	return numerator_num;
     }
@@ -138,7 +139,7 @@ public class FracCalc {
     	String denominator_num = "1";
     	if(input.indexOf("/") != -1) {
     		input = input.substring(input.indexOf("/")+1);
-    		denominator_num = input;
+    		denominator_num = input.substring(0,input.indexOf("")+1);
     	}
     	return denominator_num;
     }
@@ -153,10 +154,29 @@ public class FracCalc {
     	int n_new1 = n1*d2;
     	int n_new2 = n2*d1;
     	int n_total = n_new1 + n_new2;
-    	String final_answer = w_total + "_" + n_total + "/" + d_total;
+    	
+    	//simplifies the fraction a bit more
+    	int add_to_wholenum = (int)(n_total/d_total);
+    	int new_whole_num = w_total + add_to_wholenum;
+    	int remainder_numerator = n_total%d_total;
+    	n_total = remainder_numerator;
+    	
+    	//if it's just a whole number, then the fraction part isn't needed anymore
+    	if (remainder_numerator == 0) {
+    		String final_answer = Integer.toString(new_whole_num);
+    		System.out.println("w_total is" + new_whole_num);
+    		return final_answer;
+    	}if (new_whole_num == 0) {
+    		String final_answer = n_total + "/" + d_total;
+    		return final_answer;
+    	}
+    	else {
+    	String final_answer = new_whole_num + "_" + n_total + "/" + d_total;
     	return final_answer;
+    	}
     }
     
+    /*
     //subtract
     public static String subtract_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	int w_total = 0;
@@ -175,14 +195,13 @@ public class FracCalc {
     //multiply
     public static String multiply_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	if ((w1 == 0) || (w2 == 0)) {
-    		final answer = 0;
+    		int final_answer = 0;
     	}
-    	
-    	
     }
     
+    
   //divide
-    public static String divide_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+  public static String divide_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	int w_total = 0;
     	if ((w1 != 0) || (w2 != 0)) {
     		w_total = w1 - w2;
@@ -195,4 +214,5 @@ public class FracCalc {
     	String final_answer = w_total + "_" + n_total + "/" + d_total;
     	return final_answer;
     }
+   */
 }
