@@ -142,13 +142,20 @@ public class FracCalc {
     public static String add_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	//makes it into a mixed fraction
     	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
     	int new_n1 = ((w1*d1) + n1) * d2;
     	int new_n2 = ((w2*d2) + n2) * d1;
     	int d_total = d1*d2;
     	int n_total = new_n1 + new_n2;
     	
     	whole_num = (int)(n_total/d_total); //gets the whole number
-    	int remainder_numerator = n_total%d_total;
+    	
+    	int remainder_numerator = n_total%d_total; 
     	n_total = remainder_numerator; //makes the rest equal to the remaining numerator
     	
     	String final_answer = "";
@@ -172,6 +179,12 @@ public class FracCalc {
     public static String subtract_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	//makes them into improper fractions
     	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
     	int new_n1 = ((w1*d1) + n1) * d2;
     	int new_n2 = ((w2*d2) + n2) * d1;
     	int d_total = d1*d2;
@@ -180,6 +193,10 @@ public class FracCalc {
     	whole_num = (int)(n_total/d_total); 
     	int remainder_num = n_total%d_total;
     	n_total = remainder_num; 
+    	
+    	if (n_total<0 && whole_num != 0) { //makes sure that there's no negative within a fraction that already has a whole number
+    		Math.abs(n_total);
+    	}
     	
     	String final_answer = "";
     	
@@ -202,6 +219,12 @@ public class FracCalc {
     public static String multiply_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
     	//makes it into a mixed fraction
     	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
     	int new_n1 = (w1*d1) + n1;
     	int new_n2 = (w2*d2) + n2;
     	int n_total = new_n1 * new_n2;
@@ -231,6 +254,12 @@ public class FracCalc {
   //divide
   public static String divide_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
 	  	//mixed fraction
+	  	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+	  		n1 = -n1;
+	  	}
+	  	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+	  		n2 = -n2;
+	  	}
 	  	int new_n1 = (w1*d1) + n1;
 	  	int new_n2 = (w2*d2) + n2;
     	int new_d2 = new_n2; //dividing fractions is the same as multiplying the reciprocal
@@ -238,7 +267,7 @@ public class FracCalc {
     	System.out.println(new_n2);
     	int n_total = new_n1 * new_n2;
     	int d_total = d1*new_d2;
-    	
+    
     	String final_answer = "";
     	
     	if (d_total == 0){
