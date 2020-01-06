@@ -71,7 +71,6 @@ public class FracCalc {
     	String whole_num1 = wholeFrac(frac1);		
     	String numerator1 = numerator(frac1);
     	String denominator1 = denominator(frac1);
-    	
     	//separates frac2 further
     	String whole_num2 = wholeFrac(frac2);		
     	String numerator2 = numerator(frac2);
@@ -88,18 +87,21 @@ public class FracCalc {
     	String final_answer = "";
     	if (operator.equals("+")) {
     		final_answer = add_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
     	}
     	if (operator.equals("-")) {
     		final_answer = subtract_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
     	}
     	if (operator.equals("*")) {
     		final_answer = multiply_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
     	}
     	if (operator.equals("/")) {
     		final_answer = divide_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
     	}
-
-    	return final_answer;
+		return final_answer;
     }
 
 	//finds the whole number
@@ -131,8 +133,8 @@ public class FracCalc {
     public static String denominator (String input) {
     	String denominator_num = "1";
     	if(input.indexOf("/") != -1) {
-    		input = input.substring(input.indexOf("/")+1);
-    		denominator_num = input.substring(0,input.indexOf("")+1);
+    		denominator_num = input.substring(input.indexOf("/")+1);
+    		//denominator_num = input.substring(0,input.indexOf("")+1);
     	}
     	return denominator_num;
     }
@@ -158,6 +160,10 @@ public class FracCalc {
     	int remainder_numerator = n_total%d_total; 
     	n_total = remainder_numerator; //makes the rest equal to the remaining numerator
     	
+    	if ((n_total < 0) && (whole_num != 0)){
+    		n_total = Math.abs(n_total);
+    	}
+    	
     	String final_answer = "";
     	
     	if (n_total == 0) { //if there's no fraction part
@@ -182,7 +188,7 @@ public class FracCalc {
     	if (w1 < 0) { //if w1 is negative, then it must subtract n1
     		n1 = -n1;
     	}
-    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    	if (w2 < 0) { //if w2 is negative, then it must subtract n2 as well
     		n2 = -n2;
     	}
     	int new_n1 = ((w1*d1) + n1) * d2;
@@ -194,11 +200,11 @@ public class FracCalc {
     	int remainder_num = n_total%d_total;
     	n_total = remainder_num; 
     	
-    	if (n_total<0 && whole_num != 0) { //makes sure that there's no negative within a fraction that already has a whole number
-    		Math.abs(n_total);
+    	if ((n_total<0) && (whole_num != 0)) { //makes sure that there's no negative within a fraction that already has a whole number
+    		n_total = Math.abs(n_total);
     	}
     	
-    	String final_answer = "";
+    	String final_answer;
     	
     	if(n_total == 0) { //frac1 and frac2 are the same, then the answer is 0
 			final_answer = Integer.toString(whole_num);
@@ -225,20 +231,28 @@ public class FracCalc {
     	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
     		n2 = -n2;
     	}
+    	if ((w1 != 0) && (w2 != 0)) { //for cases without whole numbers
     	int new_n1 = (w1*d1) + n1;
     	int new_n2 = (w2*d2) + n2;
-    	int n_total = new_n1 * new_n2;
+    	n1 = new_n1;
+    	n2 = new_n2;
+    	}
+    	int n_total = n1 * n2;
     	int d_total = d1*d2;
     	
     	whole_num = (int)(n_total/d_total);
     	int remainder_num = n_total%d_total;
     	n_total = remainder_num;
     	
+    	if ((n_total < 0) && (whole_num != 0)){
+    		n_total = Math.abs(n_total);
+    	}
+    	
     	String final_answer = "";
     	
     	//if one of the values is 0
     	if (n_total == 0) {
-    		final_answer = "0";
+    		final_answer = Integer.toString(whole_num);
     		return final_answer;
     	}
     	if (whole_num == 0) {
@@ -257,17 +271,16 @@ public class FracCalc {
 	  	if (w1 < 0) { //if w1 is negative, then it must subtract n1
 	  		n1 = -n1;
 	  	}
-	  	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+	  	if (w2 < 0) { //if w2 is negative, then it must subtract n2 as well
 	  		n2 = -n2;
 	  	}
 	  	int new_n1 = (w1*d1) + n1;
 	  	int new_n2 = (w2*d2) + n2;
     	int new_d2 = new_n2; //dividing fractions is the same as multiplying the reciprocal
     	new_n2 = d2; //switch the denominator to equal the numerator and the numerator to denominator
-    	System.out.println(new_n2);
     	int n_total = new_n1 * new_n2;
     	int d_total = d1*new_d2;
-    
+    	
     	String final_answer = "";
     	
     	if (d_total == 0){
@@ -277,6 +290,12 @@ public class FracCalc {
     		int whole_num = (int)(n_total/d_total);
     		int remainder_num = n_total%d_total;
     		n_total = remainder_num;
+    		
+    		if (n_total < 0 && whole_num != 0) { //so there won't be extra negative signs in the numerator
+        		n_total = Math.abs(n_total);
+        	}
+    		
+    		d_total = Math.abs(d_total); //all denominators are positive
     		final_answer = whole_num + "_" + n_total + "/" + d_total;
     		if (whole_num == 0) {
     			final_answer = n_total + "/" + d_total;
