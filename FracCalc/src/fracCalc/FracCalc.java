@@ -307,7 +307,7 @@ public class FracCalc {
     		final_answer = whole_num + "_" + reduceFrac;
     		if (whole_num == 0) {
     			final_answer = reduceFrac;
-    		}
+    		} 
     		if (n_total == 0) {
     			final_answer = Integer.toString(whole_num);
     		}
