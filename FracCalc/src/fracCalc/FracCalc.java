@@ -44,48 +44,67 @@ public class FracCalc {
     	System.out.println("Please type your equation, or \"quit\" to quit");
         Scanner console = new Scanner(System.in);		/*creates new scanner*/
         boolean stop = false;							/*creates new boolean*/
+        String input = console.nextLine();			/*stores input value in string*/
         while (stop == false) {							/*while loop that continues until stop == true*/
-        	String input = console.nextLine();			/*stores input value in string*/
-        	String final_num = produceAnswer(input);	/*calls the function with input value as actual parameter*/
+        	String final_answer = produceAnswer(input);	/*calls the function with input value as actual parameter*/
+        	System.out.println(final_answer);
+        	System.out.println("Please type your equation, or \"quit\" to quit");
+        	input = console.nextLine();
         	if (input.equals("quit")) {					/*makes stop = true if the input says "quit"*/
         		stop = true;
         	}
         }
-        //System.out.println(final_num);
 
     }
-    
-    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
-    // This function takes a String 'input' and produces the result
-    //
-    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
-    //      e.g. input ==> "1/2 + 3/4"
-    //        
-    // The function should return the result of the fraction after it has been calculated
-    //      e.g. return ==> "1_1/4"
+
     public static String produceAnswer(String input) {
     	
     	//parsing into three different strings: frac1, operator, and frac2
     	String parsable_input = input;
-    	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes frac1 equal to the parsable_input up to the first space
+    	String frac1 = parsable_input.substring(0,parsable_input.indexOf(" ")); //makes frac1 equal to the parsable_input up to the first space
     	parsable_input = input.substring(input.indexOf(" ")+1); //takes frac1 off of parsable_input
-    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")+1); //makes operator equal to parsable_input up to the first space (actually second space of the original, but we cut that one off)
+    	String operator = parsable_input.substring(0,parsable_input.indexOf(" ")); //makes operator equal to parsable_input up to the first space (actually second space of the original, but we cut that one off)
     	parsable_input = parsable_input.substring(parsable_input.indexOf(" ")+1); //takes operator off of parsable_input
     	String frac2 = parsable_input.substring(0, parsable_input.length()); //for now, it only takes two numbers, so frac2 is equal to all of the rest of parsable_input
     	
-    	String whole_num1 = wholeFrac(frac1);		//parses frac1 further
+    	//separates frac1 further
+    	String whole_num1 = wholeFrac(frac1);		
     	String numerator1 = numerator(frac1);
     	String denominator1 = denominator(frac1);
-    	
-    	String whole_num2 = wholeFrac(frac2);		//parses frac2 further
+    	//separates frac2 further
+    	String whole_num2 = wholeFrac(frac2);		
     	String numerator2 = numerator(frac2);
     	String denominator2 = denominator(frac2);
     	
-    	String checkpoint2 = "whole:" + whole_num2 + " numerator:" + numerator2 + " denominator:" + denominator2;
-    	return checkpoint2;
+    	//parses them all into numbers for later use
+    	int w_num1 = Integer.parseInt(whole_num1);
+    	int n_1 = Integer.parseInt(numerator1);
+    	int d_1 = Integer.parseInt(denominator1);
+    	int w_num2 = Integer.parseInt(whole_num2);
+    	int n_2 = Integer.parseInt(numerator2);
+    	int d_2 = Integer.parseInt(denominator2);
+    	
+    	String final_answer = "";
+    	if (operator.equals("+")) {
+    		final_answer = add_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
+    	}
+    	if (operator.equals("-")) {
+    		final_answer = subtract_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
+    	}
+    	if (operator.equals("*")) {
+    		final_answer = multiply_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
+    	}
+    	if (operator.equals("/")) {
+    		final_answer = divide_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
+    		return final_answer;
+    	}
+		return final_answer;
     }
-    
-    //finds the whole number
+
+	//finds the whole number
     public static String wholeFrac (String input) {
     	String whole_num = "0";
     	if (input.indexOf("/") == -1) { //if there is no fraction, then the whole thing is the whole number
@@ -93,7 +112,6 @@ public class FracCalc {
     	}
     	if (input.indexOf("_") != -1) { //if the fraction has an underscore, then it has a whole number before the fraction
     		whole_num = input.substring(0,input.indexOf("_"));
-    		//whole_num = Integer.parseInt (whole);
     	}
     	return whole_num ;
     }
@@ -107,7 +125,6 @@ public class FracCalc {
     	}
     	if (input.indexOf("/") != -1) {
     		numerator_num = input.substring(0, input.indexOf("/"));
-    		//numerator_num = Integer.parseInt(numerator);
     	}
     	return numerator_num;
     }
@@ -116,9 +133,201 @@ public class FracCalc {
     public static String denominator (String input) {
     	String denominator_num = "1";
     	if(input.indexOf("/") != -1) {
-    		input = input.substring(input.indexOf("/")+1);
-    		denominator_num = input;
+    		denominator_num = input.substring(input.indexOf("/")+1);
+    		//denominator_num = input.substring(0,input.indexOf("")+1);
     	}
     	return denominator_num;
     }
+    
+    
+    //adding
+    public static String add_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	//makes it into a mixed fraction
+    	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
+    	int new_n1 = ((w1*d1) + n1) * d2;
+    	int new_n2 = ((w2*d2) + n2) * d1;
+    	int d_total = d1*d2;
+    	int n_total = new_n1 + new_n2;
+    	
+    	whole_num = (int)(n_total/d_total); //gets the whole number
+    	
+    	int remainder_numerator = n_total%d_total; 
+    	n_total = remainder_numerator; //makes the rest equal to the remaining numerator
+    	
+    	if ((n_total < 0) && (whole_num != 0)){
+    		n_total = Math.abs(n_total);
+    	}
+    	
+    	String final_answer = "";
+    	String reduceFrac = reduceFrac(n_total, d_total);
+    	
+    	if (n_total == 0) { //if there's no fraction part
+    		final_answer = Integer.toString(whole_num);
+    		return final_answer;
+    	}
+    	if (whole_num == 0) { //if there's no whole number
+    		final_answer = reduceFrac;
+    		return final_answer;
+    	}
+    	else {
+    		final_answer = whole_num + "_" + reduceFrac;
+    		return final_answer;
+    	}
+    }
+    
+    
+    //subtract
+    public static String subtract_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	//makes them into improper fractions
+    	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2 < 0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
+    	int new_n1 = ((w1*d1) + n1) * d2;
+    	int new_n2 = ((w2*d2) + n2) * d1;
+    	int d_total = d1*d2;
+    	int n_total = new_n1 - new_n2;
+    	
+    	whole_num = (int)(n_total/d_total); 
+    	int remainder_num = n_total%d_total;
+    	n_total = remainder_num; 
+    	
+    	if ((n_total<0) && (whole_num != 0)) { //makes sure that there's no negative within a fraction that already has a whole number
+    		n_total = Math.abs(n_total);
+    	}
+    	
+    	String final_answer;
+    	String reduceFrac = reduceFrac(n_total, d_total);
+    	
+    	if(n_total == 0) { //frac1 and frac2 are the same, then the answer is 0
+			final_answer = Integer.toString(whole_num);
+			return final_answer;
+		}
+    	if(whole_num == 0) { //if there is no whole number anymore then it doesn't print it
+    		final_answer = reduceFrac;
+    		return final_answer;
+    	}
+    	else {
+    		final_answer = whole_num + "_" + reduceFrac;
+    		return final_answer;
+    	}
+    }
+    
+    
+    //multiply
+    public static String multiply_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+    	//makes it into a mixed fraction
+    	int whole_num = 0;
+    	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+    		n1 = -n1;
+    	}
+    	if (w2<0) { //if w2 is negative, then it must subtract n2 as well
+    		n2 = -n2;
+    	}
+    	
+    	int new_n1 = (w1*d1) + n1;
+    	int new_n2 = (w2*d2) + n2;
+    	int n_total = new_n1 * new_n2;
+    	int d_total = d1*d2;
+    	
+    	whole_num = (int)(n_total/d_total);
+    	int remainder_num = n_total%d_total;
+    	n_total = remainder_num;
+    	
+    	if ((n_total < 0) && (whole_num != 0)){
+    		n_total = Math.abs(n_total);
+    	}
+    	
+    	String final_answer = "";
+    	String reduceFrac = reduceFrac(n_total, d_total);
+    	
+    	//if one of the values is 0
+    	if (n_total == 0) {
+    		final_answer = Integer.toString(whole_num);
+    		return final_answer;
+    	}
+    	if (whole_num == 0) {
+    		final_answer = reduceFrac;
+    		return final_answer;
+    	}
+    	else {
+    		final_answer = whole_num + "_" + reduceFrac;
+    		return final_answer;
+    	}
+    }
+     
+  //divide
+  public static String divide_calc(int w1, int n1, int d1, int w2, int n2, int d2) {
+	  	//mixed fraction
+	  	if (w1 < 0) { //if w1 is negative, then it must subtract n1
+	  		n1 = -n1;
+	  	}
+	  	if (w2 < 0) { //if w2 is negative, then it must subtract n2 as well
+	  		n2 = -n2;
+	  	}
+	  	int new_n1 = (w1*d1) + n1;
+	  	int new_n2 = (w2*d2) + n2;
+    	int new_d2 = new_n2; //dividing fractions is the same as multiplying the reciprocal
+    	new_n2 = d2; //switch the denominator to equal the numerator and the numerator to denominator
+    	int n_total = new_n1 * new_n2;
+    	int d_total = d1*new_d2;
+    	
+    	String final_answer = "";
+    	
+    	if (d_total == 0){
+    		final_answer = "Error, denominators cannot equal 0";
+    	}
+    	else {
+    		int whole_num = (int)(n_total/d_total);
+    		int remainder_num = n_total%d_total;
+    		n_total = remainder_num;
+    		System.out.println(n_total);
+    		
+    		if (n_total < 0 && whole_num != 0) { //so there won't be extra negative signs in the numerator
+        		n_total = Math.abs(n_total);
+        	}
+    		
+    		if (((d_total < 0) && (whole_num == 0)) && n_total > 0) { //if and only if there is no whole number plus the numerator is positive but the denominator isn't, then move the sign to the front
+    			n_total = -n_total;
+    			d_total = -d_total;
+    		}else {
+    			d_total = Math.abs(d_total);
+    		}
+    		String reduceFrac = reduceFrac(n_total, d_total);
+    		
+    		final_answer = whole_num + "_" + reduceFrac;
+    		if (whole_num == 0) {
+    			final_answer = reduceFrac;
+    		} 
+    		if (n_total == 0) {
+    			final_answer = Integer.toString(whole_num);
+    		}
+    	}
+    	return final_answer;
+    }
+  
+  public static String reduceFrac(int n, int d) {
+	String fraction = "";
+	System.out.println(n + " " + d);
+	int new_n = n; //needs to make new variables so it doesn't mess up for loop
+	int new_d = d;
+	
+	for (int i = 2; i <= d; i++) {
+		if ((n % i == 0) && (d % i == 0)){
+			new_n = n/i;
+			new_d = d/i;
+		}
+		fraction = new_n + "/" + new_d;
+	}
+	return fraction;
+  }
 }
