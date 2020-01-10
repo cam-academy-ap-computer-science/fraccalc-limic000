@@ -330,4 +330,6 @@ public class FracCalc {
 	}
 	return fraction;
   }
+
 }
+
