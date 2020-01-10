@@ -101,6 +101,7 @@ public class FracCalc {
     		final_answer = divide_calc(w_num1, n_1, d_1, w_num2, n_2, d_2);
     		return final_answer;
     	}
+    	System.out.println(final_answer);
 		return final_answer;
     }
 
@@ -290,7 +291,6 @@ public class FracCalc {
     		int whole_num = (int)(n_total/d_total);
     		int remainder_num = n_total%d_total;
     		n_total = remainder_num;
-    		System.out.println(n_total);
     		
     		if (n_total < 0 && whole_num != 0) { //so there won't be extra negative signs in the numerator
         		n_total = Math.abs(n_total);
@@ -317,7 +317,6 @@ public class FracCalc {
   
   public static String reduceFrac(int n, int d) {
 	String fraction = "";
-	System.out.println(n + " " + d);
 	int new_n = n; //needs to make new variables so it doesn't mess up for loop
 	int new_d = d;
 	
