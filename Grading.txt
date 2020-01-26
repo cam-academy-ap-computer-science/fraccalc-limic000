@@ -1,0 +1,18 @@
+Total Grade:  116/115
+
+Input Parsing: 15/15
+Addition & Subtraction: 20/20
+Multiplication & Division: 20/20
+Fraction Reduction: 15/15
+Output is a Mixed Fraction: 15/15
+Handles Mixed Fractions: 10/10
+Handles Negatives: 15/15
+Code Comments: 5/5
+
+Extra Credit Error Handling: 1/4
+
+You properly reported an error on 3 / 0.  But, not on 3/0 * 1.
+You didn't report errors on 1 ++ 2 or 3_3_3 / 1 either.  So,
+just one point of extra credit.  But your code is of excellent
+quality, well organized.  This is top-notch work.  I wish my
+employees wrote such well-organized, well-structured code.  Well done!
